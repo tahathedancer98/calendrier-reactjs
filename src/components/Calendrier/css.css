@@ -1,0 +1,24 @@
+.title{
+    color:brown
+}
+.prev{
+    color:black;
+    background-color: aqua;
+}
+.next{
+    color:black;
+    background-color: aqua;
+}
+.prev:hover{
+    color:aqua;
+    background-color: black;
+}
+.next:hover{
+    color:aqua;
+    background-color: black;
+}
+.body-table .item-tab:hover{
+    color:black;
+    background-color: aqua;
+    cursor: pointer;
+}
