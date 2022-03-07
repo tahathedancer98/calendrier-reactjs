@@ -4,18 +4,25 @@ import { Form, Table , Button, Card, ListGroup, ListGroupItem } from 'react-boot
 import "./css.css";
 
 const URL_DB = "http://localhost:3002/rdv";
+const dateDebutCalendrier = new Date("December 28, 2000");
+const dateFinCalendrier = new Date("January 30, 2040");
 
 export default function Calendrier() {
+
     const [annees, setAnnees] = useState();
     const [mois, setMois] = useState();
     const [jour, setJour] = useState();
+
     const [calendrier, setCalendrier] = useState([]);
+
     const [currentMonth , setCurrentMonth] = useState([]);
     const [dateChoisi, setDateChoisi] = useState();
+
     const [rdv , setRdv] = useState({
         titre : "",
         commentaire :"",
     });
+
     const [allRDV, setAllRdv] = useState([]);
     const [rdvDuJourChoisi, setRdvDuJourChoisi] = useState([]);
 
@@ -39,8 +46,6 @@ export default function Calendrier() {
             setAnnees(annees-1);
         }   
         else setMois(mois-1);
-
-       
     }
     const nextMonth = () => {
         console.log(mois+1); // Mois suivant
@@ -61,7 +66,6 @@ export default function Calendrier() {
     const dayClick = (a) => {
         console.log(a);
         setDateChoisi(a.toLocaleDateString('fr-FR',options));
-        
     }
     const supprimerRdv = (e, rdv) => {
         e.preventDefault();
@@ -93,11 +97,9 @@ export default function Calendrier() {
         setAnnees(date.getFullYear());
         setJour(date.getDate());
         var r = [];
-        var dateDebut = new Date("December 28, 2014");
-        var endDate = new Date("January 30, 2030");
-        while (dateDebut <= endDate)
+        while (dateDebutCalendrier <= dateFinCalendrier)
         {
-            r.push(new Date(dateDebut.setDate(dateDebut.getDate() + 1)));
+            r.push(new Date(dateDebutCalendrier.setDate(dateDebutCalendrier.getDate() + 1)));
         }
         setCalendrier(r);
         setRdvDuJourChoisi([]);
@@ -119,7 +121,7 @@ export default function Calendrier() {
                             <button className='btn btn-dark next' onClick={() => nextYear()}> &gt; </button>    
                         </div>
                     </div>
-                    <Table striped bordered hover>
+                    <Table bordered>
                         <thead>
                             <tr>
                                 {currentMonth.length > 0 && currentMonth.slice(0,7).map(a => {
@@ -132,9 +134,18 @@ export default function Calendrier() {
                                 <tr> 
                                 {currentMonth.length > 0 && currentMonth.slice(0,7).map(a => {
                                     const rdvs = allRDV.filter(rdv => rdv.date === a.toLocaleDateString('fr-FR',options));
-                                    
+                                    if(new Date().toLocaleDateString('fr-FR',options) == a.toLocaleDateString('fr-FR',options)){
+                                        return <td className='col-md-1 item-tab' 
+                                                    key={a} 
+                                                    style={{backgroundColor:'black',color:'white'}}
+                                                    onClick={()=> {
+                                                    dayClick(a);
+                                                    
+                                                }}>
+                                                    {a.getDate()}
+                                                 </td>
+                                    }
                                     if(rdvs.length>0){
-                                        
                                         return <td className='col-md-1 item-tab' 
                                                     key={a} 
                                                     style={{backgroundColor:'grey'}}
@@ -149,15 +160,23 @@ export default function Calendrier() {
                                             dayClick(a);
                                         }}>{a.getDate()}</td>
                                     }
-                                    
                                 })}
                                 </tr>
                                 <tr> 
                                 {currentMonth.length > 0 && currentMonth.slice(7,14).map(a => {
                                     const rdvs = allRDV.filter(rdv => rdv.date === a.toLocaleDateString('fr-FR',options));
-                                    
+                                    if(new Date().toLocaleDateString('fr-FR',options) === a.toLocaleDateString('fr-FR',options)){
+                                        return <td className='col-md-1 item-tab' 
+                                                    key={a} 
+                                                    style={{backgroundColor:'black',color:'white'}}
+                                                    onClick={()=> {
+                                                    dayClick(a);
+                                                    
+                                                }}>
+                                                    {a.getDate()}
+                                                 </td>
+                                    }
                                     if(rdvs.length>0){
-                                        
                                         return <td className='col-md-1 item-tab' 
                                                     key={a} 
                                                     style={{backgroundColor:'grey'}}
@@ -172,15 +191,23 @@ export default function Calendrier() {
                                             dayClick(a);
                                         }}>{a.getDate()}</td>
                                     }
-                                    
                                 })}
                                 </tr>
                                 <tr> 
                                 {currentMonth.length > 0 && currentMonth.slice(14,21).map(a => {
                                     const rdvs = allRDV.filter(rdv => rdv.date === a.toLocaleDateString('fr-FR',options));
-                                    
+                                    if(new Date().toLocaleDateString('fr-FR',options) == a.toLocaleDateString('fr-FR',options)){
+                                        return <td className='col-md-1 item-tab' 
+                                                    key={a} 
+                                                    style={{backgroundColor:'black',color:'white'}}
+                                                    onClick={()=> {
+                                                    dayClick(a);
+                                                    
+                                                }}>
+                                                    {a.getDate()}
+                                                 </td>
+                                    }
                                     if(rdvs.length>0){
-                                        
                                         return <td className='col-md-1 item-tab' 
                                                     key={a} 
                                                     style={{backgroundColor:'grey'}}
@@ -201,7 +228,17 @@ export default function Calendrier() {
                                 <tr> 
                                 {currentMonth.length > 0 && currentMonth.slice(21,28).map(a => {
                                     const rdvs = allRDV.filter(rdv => rdv.date === a.toLocaleDateString('fr-FR',options));
-                                    
+                                    if(new Date().toLocaleDateString('fr-FR',options) == a.toLocaleDateString('fr-FR',options)){
+                                        return <td className='col-md-1 item-tab' 
+                                                    key={a} 
+                                                    style={{backgroundColor:'black',color:'white'}}
+                                                    onClick={()=> {
+                                                    dayClick(a);
+                                                    
+                                                }}>
+                                                    {a.getDate()}
+                                                 </td>
+                                    }
                                     if(rdvs.length>0){
                                         
                                         return <td className='col-md-1 item-tab' 
@@ -242,7 +279,6 @@ export default function Calendrier() {
                                     
                                 })}
                                 </tr>
-                                
                         </tbody>
                     </Table>
                 </div>
@@ -259,6 +295,7 @@ export default function Calendrier() {
                                 onChange={onChange}
                                 className='text-center'
                         />
+                        
                         <Form.Group className="mb-3 mt-3" controlId="formRDV_date">
                             <Form.Control className="text-center" type="text" placeholder="Choisissez votre date" name="date" disabled={true} value={dateChoisi}/>
                         </Form.Group>
